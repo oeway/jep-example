@@ -31,11 +31,18 @@ public class Simple {
             System.out.println("loop is running: " + running);
             interp.exec(code);
             interp.exec("print('Serving...')");
+            // interp.exec("loop.call_soon_threadsafe(loop.create_task, timer_print())");
+
+            // present the object to python
+            interp.set("out", System.out);
+            // register println as a println service
+            interp.exec("loop.call_soon_threadsafe(loop.create_task, register_function('println', out.println, 'hello-from-java'))");
         } catch (Exception e) {
             System.err.println(e);
         }
-        ImageJ ij = new ImageJ();
-        ij.setVisible(true);
+        // ImageJ ij = new ImageJ();
+        // ij.setVisible(true);
+        
         // Wait forever
         while (true) {
             Thread.sleep(1000);
