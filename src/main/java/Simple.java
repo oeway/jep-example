@@ -4,7 +4,6 @@ import java.io.*;
 import ij.ImageJ;
 import jep.Interpreter;
 import jep.SharedInterpreter;
-import java.lang.Math;
 
 interface Square {
     int calculate(int x);
