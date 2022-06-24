@@ -4,7 +4,11 @@ import java.io.*;
 import ij.ImageJ;
 import jep.Interpreter;
 import jep.SharedInterpreter;
+import java.lang.Math;
 
+interface Square {
+    int calculate(int x);
+}
 
 public class Simple {
 
@@ -32,11 +36,12 @@ public class Simple {
             interp.exec(code);
             interp.exec("print('Serving...')");
             // interp.exec("loop.call_soon_threadsafe(loop.create_task, timer_print())");
-
+            
             // present the object to python
-            interp.set("out", System.out);
+            Square s = (int x) -> x * x;
+            interp.set("square", s);
             // register println as a println service
-            interp.exec("loop.call_soon_threadsafe(loop.create_task, register_function('println', out.println, 'hello-from-java'))");
+            interp.exec("loop.call_soon_threadsafe(loop.create_task, register_function('println', square.calculate, 12))");
         } catch (Exception e) {
             System.err.println(e);
         }
